@@ -1,12 +1,56 @@
-# React + Vite
+# 🪴 NativePlant - Preentrega React TT (hasta Clase 7) COMISIÓN 25022
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Descripción general:**
 
-Currently, two official plugins are available:
+NativePlant es un e-commerce de servicios de restauración ecológica en entornos urbanos y periurbanos. Los usuarios pueden explorar una galería de servicios, agregarlos a un carrito, simular una compra, completar sus datos y acceder a una ruta protegida (admin) si ingresan como usuario administrador.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## ✅ Funcionalidades implementadas hasta Clase 7
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🌱 Estructura del proyecto
+- Proyecto creado con **Vite + React**
+- Enrutamiento con **React Router DOM**
+- Componentes divididos en: `pages`, `components`, `context`, `auth`, `data`
+- Estilos aplicados con **Bootstrap** y CSS personalizados
+
+### 🛒 E-commerce funcional
+- Galería de servicios cargada desde `data.json` con `fetch`
+- Visualización individual (`ProductDescription`)
+- Componente `Cart` con botones para:
+  - Aumentar y disminuir cantidad
+  - Eliminar servicio (ícono de trash)
+  - Ver total
+- Simulación de compra (`Buy`) y pago (`Pay`)
+- Carrito implementado con `Context API`
+
+### 🔐 Login simulado
+- Usuario: `admin@nativeplantchain.com.ar`
+- Contraseña: `123`
+- Si el login coincide, se muestra el botón **Admin**
+- Ruta `/admin` protegida con componente `RutaProtegida`
+
+### 🧠 Contexto global (`CartContext`)
+- Manejo de productos, carrito, autenticación
+- Las funciones de `addToCart`, `deleteFromCart`, `removeFromCart` funcionan correctamente
+- Se preparó el estado `isAuthenticated` y `userEmail` para login
+
+### 🎨 Interfaz
+- Navbar con logo personalizado (símbolo coreano 숲)
+- Footer con mensaje personalizado
+- Diseño responsive y uso de íconos (React Icons)
+- Cards uniformes con cantidad, botón de "ver más", y categoría
+
+### 🧪 Funcionalidad adicional: Filtro por categoría
+- Menú desplegable para filtrar servicios
+- Si no hay coincidencias, muestra mensaje y botón "Ver todos"
+
+---
+
+## 🔧 Consideraciones y cosas pendientes para la entrega final
+
+- ❌ Se usan Alerts que luego para el proyecto final se reemplazaran por mensajes más agradables para el usuario.
+- ❌ El **carrito no persiste** al recargar porque aún **no se implementó localStorage** (tema no visto aún en clase)
+- 🛑 La ruta `/admin` está protegida pero **no implementa lógica real** para modificar productos (solo simulado)
+- ✏️ La funcionalidad de “disponibilidad del servicio” está preparada visualmente pero **no se conecta a estado global**
+- 🔒 El login es solo visual y sin almacenamiento persistente
+- 🧾 Validaciones simples en el formulario (`Buy`) con alertas, sin back-end
