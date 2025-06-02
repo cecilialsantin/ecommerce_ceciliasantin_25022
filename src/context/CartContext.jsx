@@ -9,29 +9,53 @@ export const CartProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [isAuthenticated, setIsAuth] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+
 
   //El carrito se borra al recargar la pagina hasta 
   // que implementemos localStorage cuando lo veamos en el curso
-  useEffect(() => {
-    fetch("/data/data.json")
-      .then((res) => res.json())
-      .then((datos) => {
-        setTimeout(() => {
-          setProducts(datos);
-          setLoading(false);
-        }, 2000);
-      })
-      .catch((err) => {
-        console.error("Error al cargar productos:", err);
-        setError(true);
+useEffect(() => {
+  fetch("https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Error al obtener datos");
+      }
+      return res.json();
+    })
+    .then((datos) => {
+      setTimeout(() => {
+        setProducts(datos);
         setLoading(false);
-      });
-  }, []);
+      }, 2000);
+    })
+    .catch((err) => {
+      console.error("Error al cargar productos:", err);
+      setError(true);
+      setLoading(false);
+    });
+}, []);
+
+const refreshProducts = () => {
+  setLoading(true);
+  fetch("https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services")
+    .then((res) => {
+      if (!res.ok) throw new Error("Error al obtener datos");
+      return res.json();
+    })
+    .then((datos) => {
+      setProducts(datos);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error al recargar productos:", err);
+      setError(true);
+      setLoading(false);
+    });
+};
+
+
 
   const handleAddToCart = (product) => {
-  const quantityToAdd = product.quantity || 1; // stock mínimo = 1
+  const quantityToAdd = product.quantity || 1; // cantidad mínima = 1
   const productInCart = cart.find((item) => item.id === product.id);
 
   if (productInCart) {
@@ -73,6 +97,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cart,
+        refreshProducts,
         setCart,
         products,
         setProducts,
@@ -81,10 +106,6 @@ export const CartProvider = ({ children }) => {
         handleAddToCart,
         handleDeleteFromCart,
         handleRemoveFromCart,
-        isAuthenticated,
-        setIsAuth,
-        userEmail,
-        setUserEmail
       }}
     >
       {children}

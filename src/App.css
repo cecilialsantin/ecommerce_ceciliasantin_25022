@@ -71,3 +71,7 @@ footer {
   font-size: 1rem;
 }
 
+.button .nav-link {
+  color: #a32c54f5 !important; /* rosa */
+  font-weight: 800;
+}

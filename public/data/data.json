@@ -5,9 +5,10 @@
     "description": "Planificación y plantación de microbosques con flora nativa en jardines privados o espacios públicos.",
     "price": 45000,
     "quantity": 1,
-    "image": "/images/microbosques.png",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/microbosques.png",
     "category": "Diseño",
-    "available": true
+    "available": true,
+    "season": "invierno"
   },
   {
     "id": "2",
@@ -15,9 +16,10 @@
     "description": "Revegetación de márgenes con especies nativas para controlar la erosión y mejorar la biodiversidad.",
     "price": 78000,
     "quantity": 1,
-    "image": "/images/laguna.jpg",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/laguna.jpg",
     "category": "Asesoramiento",
-    "available": true
+    "available": true,
+    "season": "primavera"
   },
   {
     "id": "3",
@@ -25,9 +27,10 @@
     "description": "Evaluación de flora y fauna en jardines urbanos con propuestas de restauración ecológica.",
     "price": 25000,
     "quantity": 1,
-    "image": "/images/diagnostico.jpg",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/diagnostico.jpg",
     "category": "Diagnóstico",
-    "available": true
+    "available": true,
+    "season": "todo el año"
   },
   {
     "id": "4",
@@ -35,9 +38,10 @@
     "description": "Diseño e instalación de jardines con especies nativas para atraer abejas, mariposas y colibríes.",
     "price": 32000,
     "quantity": 1,
-    "image": "/images/polinizadores1.png",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/polinizadores1.png",
     "category": "Diseño",
-    "available": true
+    "available": true,
+    "season": "otoño"
   },
   {
     "id": "5",
@@ -45,9 +49,10 @@
     "description": "Selección guiada de especies nativas según región, tipo de suelo y nivel de sombra. Incluye lista de viveros recomendados.",
     "price": 15000,
     "quantity": 1,
-    "image": "/images/combo-nativas.png",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/combo-nativas.png",
     "category": "Asesoramiento",
-    "available": true
+    "available": true,
+    "season": "primavera"
   },
   {
     "id": "6",
@@ -55,8 +60,9 @@
     "description": "Diseño de caminos que respetan la flora nativa y se integran al entorno natural del jardín.",
     "price": 38000,
     "quantity": 1,
-    "image": "/images/sendero-ecologico.png",
+    "image": "https://raw.githubusercontent.com/cecilialsantin/ecommerce_ceciliasantin_25022/main/public/images/sendero-ecologico.png",
     "category": "Diseño",
-    "available": true
+    "available": true,
+    "season": "todo el año"
   }
 ]

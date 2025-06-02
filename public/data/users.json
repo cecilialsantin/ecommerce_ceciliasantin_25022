@@ -1,0 +1,12 @@
+[
+  {
+    "email": "admin@nativeplantchain.com.ar",
+    "password": "123",
+    "role": "admin"
+  },
+  {
+    "email": "usuario@ejemplo.com",
+    "password": "456",
+    "role": "user"
+  }
+]

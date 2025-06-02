@@ -1,8 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { useContext } from 'react';
-import { CartContext } from './context/CartContext';
-
+import { useAuth } from './context/AuthContext';
 import Header from './components/estaticos/Header';
 import Footer from './components/estaticos/Footer';
 
@@ -20,7 +18,7 @@ import Buy from './components/Buy';
 import Pay from './components/Pay';
 
 function App() {
-  const { isAuthenticated, userEmail } = useContext(CartContext);
+  const { isAuth } = useAuth(); //
 
   return (
     <>
@@ -32,7 +30,7 @@ function App() {
           <Route path="/contactos" element={<Contacts />} />
           <Route path="/productos" element={<ProductsGallery />} />
 
-             {/* Ruta dinámica  */}
+          {/* Ruta dinámica */}
           <Route path="/products/:id" element={<ProductDescription />} />
 
           <Route path="/cart" element={<Cart />} />
@@ -40,16 +38,17 @@ function App() {
           <Route path="/pay" element={<Pay />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Ruta protegida  */}
+          {/* Ruta protegida */}
           <Route
             path="/admin"
             element={
-              <RutasProtegidas isAuthenticated={isAuthenticated && userEmail === "admin@nativeplantchain.com.ar"}>
+              <RutasProtegidas isAuthenticated={isAuth}>
                 <Admin />
               </RutasProtegidas>
             }
           />
-            {/* Ruta a pagina de error  */}
+
+          {/* Ruta a página de error */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

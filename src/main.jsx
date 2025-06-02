@@ -6,14 +6,17 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartProvider } from './context/CartContext.jsx';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { AuthProvider } from "./context/AuthContext";
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ <StrictMode>
     <BrowserRouter>
-    <CartProvider>
-      <App />
-    </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </AuthProvider>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );
