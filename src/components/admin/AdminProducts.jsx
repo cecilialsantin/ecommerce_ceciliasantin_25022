@@ -1,64 +1,44 @@
 // AdminProducts.jsx
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { AdminContext } from "../../context/AdminContext";
 import { useNavigate } from "react-router-dom";
 import FormProduct from "../FormProduct";
 
 export default function AdminProducts() {
-  const { setIsAuth, products, refreshProducts, loading, error } = useContext(CartContext);
+  const { setIsAuth, products, loading, error } = useContext(CartContext);
+  const { addProduct, updateProduct, deleteProduct } = useContext(AdminContext);
+
   const [open, setOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const apiUrl = "https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services";
+
   const navigate = useNavigate();
 
-
-  const addProduct = async (product) => {
+  const handleAdd = async (product) => {
     try {
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
-      if (!res.ok) throw new Error("Error al agregar servicio");
-      await refreshProducts();
+      await addProduct(product);
       setOpen(false);
     } catch (err) {
-      alert("Error al agregar producto:", err);
+      alert(err.message);
     }
   };
 
-  const updateProduct = async (product) => {
+  const handleUpdate = async (product) => {
     try {
-      const res = await fetch(`${apiUrl}/${product.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
-      if (!res.ok) throw new Error("Error al actualizar servicio");
-      await refreshProducts();
+      await updateProduct(product);
       setEditingId(null);
       setSelectedProduct(null);
     } catch (err) {
-      alert("Error al actualizar producto:", err);
+      alert(err.message);
     }
   };
 
-  const deleteProduct = async (id) => {
-    const confirm = window.confirm("¿Seguro que querés eliminar este servicio?");
-    if (!confirm) return;
+  const handleDelete = async (id) => {
     try {
-      const res = await fetch(`${apiUrl}/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error("Error al eliminar producto");
-      await refreshProducts();
+      await deleteProduct(id);
     } catch (err) {
-      alert("Error al eliminar producto:", err);
+      alert(err.message);
     }
   };
 
@@ -88,11 +68,11 @@ export default function AdminProducts() {
             <i className="fa-solid fa-plus me-2"></i>Agregar servicio
           </button>
 
-          {open && <FormProduct onSubmit={addProduct} />}
+          {open && <FormProduct onSubmit={handleAdd} />}
 
           {editingId && (
             <FormProduct
-              onSubmit={updateProduct}
+              onSubmit={handleUpdate}
               initialData={selectedProduct}
               editingId={editingId}
               cancelEdit={() => {
@@ -148,7 +128,7 @@ export default function AdminProducts() {
                       </button>
                       <button
                         className="btn btn-sm btn-outline-danger"
-                        onClick={() => deleteProduct(product.id)}
+                        onClick={() => handleDelete(product.id)}
                       >
                         Eliminar
                       </button>
@@ -163,4 +143,3 @@ export default function AdminProducts() {
     </div>
   );
 }
-

@@ -34,6 +34,7 @@ useEffect(() => {
     });
 }, []);
 
+// Función compartida para actualizar el listado de productos desde la API
 const refreshProducts = () => {
   setLoading(true);
   fetch("https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services")
@@ -51,7 +52,6 @@ const refreshProducts = () => {
       setLoading(false);
     });
 };
-
 
 
   const handleAddToCart = (product) => {

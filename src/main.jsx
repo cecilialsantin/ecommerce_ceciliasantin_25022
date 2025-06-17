@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartProvider } from './context/CartContext.jsx';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { AuthProvider } from "./context/AuthContext";
+import { AdminProvider } from './context/AdminContext.jsx';
 
 
 createRoot(document.getElementById('root')).render(
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
+          <AdminProvider>
           <App />
+          </AdminProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>
