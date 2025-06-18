@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import FormProduct from "../FormProduct";
 
 export default function AdminProducts() {
-  const { setIsAuth, products, loading, error } = useContext(CartContext);
+  const { setIsAuth, products, loading, error, refreshProducts } = useContext(CartContext);
+
   const { addProduct, updateProduct, deleteProduct } = useContext(AdminContext);
 
   const [open, setOpen] = useState(false);
@@ -16,31 +17,34 @@ export default function AdminProducts() {
   const navigate = useNavigate();
 
   const handleAdd = async (product) => {
-    try {
-      await addProduct(product);
-      setOpen(false);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  try {
+    await addProduct(product);
+    await refreshProducts(); 
+    setOpen(false);
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
-  const handleUpdate = async (product) => {
-    try {
-      await updateProduct(product);
-      setEditingId(null);
-      setSelectedProduct(null);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+const handleUpdate = async (product) => {
+  try {
+    await updateProduct(product);
+    await refreshProducts(); 
+    setEditingId(null);
+    setSelectedProduct(null);
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteProduct(id);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+const handleDelete = async (id) => {
+  try {
+    await deleteProduct(id);
+    await refreshProducts(); 
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
   return (
     <div className="container my-4">
