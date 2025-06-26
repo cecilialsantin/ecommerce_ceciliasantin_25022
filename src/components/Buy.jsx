@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 export default function Buy() {
   const [form, setForm] = useState({
@@ -26,12 +28,13 @@ export default function Buy() {
 
     const camposIncompletos = Object.values(form).some((valor) => valor.trim() === "");
     if (camposIncompletos) {
-      alert("Por favor, completá todos los campos antes de finalizar la solicitud.");
+      toast.info("Por favor, completá todos los campos antes de finalizar la solicitud.");
       return;
     }
 
-    alert(`Estás solicitando ${cantidadProductos} ${plural} por un total de $${total}. 
+   toast.info(`Estás solicitando ${cantidadProductos} ${plural} por un total de $${total}. 
 ¡Gracias por tu solicitud! Una vez que completes el pago, contactaremos a ${form.nombre} al número ${form.telefono}.`);
+
 
     navigate("/pay");
   };

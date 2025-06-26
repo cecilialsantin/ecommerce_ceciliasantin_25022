@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FaInstagram, FaFacebookF, FaPaperPlane, FaTwitter, FaLeaf } from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 export default function Contacts() {
   const [formData, setFormData] = useState({ nombre: "", email: "", mensaje: "" });
@@ -10,22 +12,26 @@ export default function Contacts() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Simulación de envío
     console.log("📩 Nuevo mensaje recibido:", formData);
-
     setFormData({ nombre: "", email: "", mensaje: "" }); 
-    alert("Mensaje enviado (simulado). Revisá la consola.");
+    toast.info("Mensaje enviado, muchas gracias por tu contacto.");
   };
 
   return (
-    <div className="container">
-      <h1 className="display-4 text-center">Contacto</h1>
-      <p className="lead text-center mb-4">
-        Podés comunicarte con nosotros a través del formulario o por nuestras redes sociales.
+    <div className="container my-5">
+      <h1 className="display-5 fw-bold text-success text-center mb-3">Contacto</h1>
+      <p className="text-muted text-center mb-4 fs-5">
+        Podés comunicarte con nosotros a través del formulario o seguirnos en nuestras redes 🌿
       </p>
 
-      <form onSubmit={handleSubmit} className="mb-5">
+      <div className="d-flex justify-content-center gap-3 mb-5">
+        <FaInstagram size={28} className="text-success" />
+        <FaFacebookF size={28} className="text-success" />
+        <FaTwitter size={28} className="text-success" />
+        <FaLeaf size={28} className="text-success" />
+      </div>
+
+      <form onSubmit={handleSubmit} className="contact-form mx-auto">
         <div className="mb-3">
           <label htmlFor="nombre" className="form-label">Nombre</label>
           <input
@@ -65,7 +71,9 @@ export default function Contacts() {
           />
         </div>
 
-        <button type="submit" className="btn btn-success">Enviar</button>
+         <button type="submit" className="btn btn-success w-20 d-block mx-auto">
+                  <FaPaperPlane /> {/* Ícono de enviar */}
+          </button>
       </form>
     </div>
   );

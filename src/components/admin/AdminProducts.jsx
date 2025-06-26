@@ -2,11 +2,14 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { AdminContext } from "../../context/AdminContext";
-import { useNavigate } from "react-router-dom";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import FormProduct from "../FormProduct";
+import { toast } from 'react-toastify';
+
+
 
 export default function AdminProducts() {
-  const { setIsAuth, products, loading, error, refreshProducts } = useContext(CartContext);
+  const { products, loading, error, refreshProducts } = useContext(CartContext);
 
   const { addProduct, updateProduct, deleteProduct } = useContext(AdminContext);
 
@@ -14,15 +17,13 @@ export default function AdminProducts() {
   const [editingId, setEditingId] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const navigate = useNavigate();
-
   const handleAdd = async (product) => {
   try {
     await addProduct(product);
     await refreshProducts(); 
     setOpen(false);
   } catch (err) {
-    alert(err.message);
+    toast.error(err.message);
   }
 };
 
@@ -33,7 +34,7 @@ const handleUpdate = async (product) => {
     setEditingId(null);
     setSelectedProduct(null);
   } catch (err) {
-    alert(err.message);
+    toast.error(err.message);
   }
 };
 
@@ -42,24 +43,14 @@ const handleDelete = async (id) => {
     await deleteProduct(id);
     await refreshProducts(); 
   } catch (err) {
-    alert(err.message);
+    toast.error(err.message);
   }
 };
 
   return (
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-success">Panel de Administración</h2>
-        <button
-          className="btn btn-outline-danger"
-          onClick={() => {
-            setIsAuth(false);
-            localStorage.removeItem("isAuth");
-            navigate("/");
-          }}
-        >
-          <i className="fa-solid fa-right-from-bracket me-2"></i>Salir
-        </button>
+        <h2 className="display-4 fw-bold text-success">Administración de Servicios</h2>
       </div>
 
       {loading ? (
@@ -68,11 +59,21 @@ const handleDelete = async (id) => {
         <p className="text-danger">Error al cargar los servicios.</p>
       ) : (
         <>
-          <button className="btn btn-primary mb-4" onClick={() => setOpen(true)}>
-            <i className="fa-solid fa-plus me-2"></i>Agregar servicio
-          </button>
+        
+        <button
+          className="btn btn-warning shadow-sm mb-4"
+          onClick={() => setOpen(true)}
+          title="Agregar servicio"
+        >
+          <FaPlus size={20}/> Agregar Servicio
+        </button>
 
-          {open && <FormProduct onSubmit={handleAdd} />}
+          {open && !editingId && (
+
+           <FormProduct onSubmit={handleAdd} 
+           cancelEdit={() => setOpen(false)}
+          />
+          )}
 
           {editingId && (
             <FormProduct
@@ -87,8 +88,8 @@ const handleDelete = async (id) => {
           )}
 
           <div className="table-responsive">
-            <table className="table table-bordered align-middle">
-              <thead className="table-light">
+          <table className="table table-hover table-striped table-bordered align-middle shadow-sm rounded">
+              <thead className="table-light text-center">
                 <tr>
                   <th>Imagen</th>
                   <th>Servicio</th>
@@ -96,11 +97,12 @@ const handleDelete = async (id) => {
                   <th>Categoría</th>
                   <th>Temporada</th>
                   <th>Precio</th>
+                  <th>Cantidad disponible</th>
                   <th>Disponibilidad</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-center">
                 {products.map((product) => (
                   <tr key={product.id}>
                     <td>
@@ -115,28 +117,33 @@ const handleDelete = async (id) => {
                     <td>{product.category}</td>
                     <td>{product.season}</td>
                     <td>${product.price}</td>
+                    <td>{product.quantity}</td>
                     <td>
                       <span className={`badge ${product.available ? "bg-success" : "bg-secondary"}`}>
                         {product.available ? "Disponible" : "No disponible"}
                       </span>
                     </td>
                     <td>
+                    <div className="d-flex justify-content-center gap-0">
                       <button
-                        className="btn btn-sm btn-outline-warning me-2"
+                        className="btn text-primary rounded-circle"
                         onClick={() => {
                           setEditingId(product.id);
                           setSelectedProduct(product);
                         }}
+                        title="Editar"
                       >
-                        Editar
+                        <FaEdit size={22} />
                       </button>
                       <button
-                        className="btn btn-sm btn-outline-danger"
+                        className="btn text-danger rounded-circle"
                         onClick={() => handleDelete(product.id)}
+                        title="Eliminar"
                       >
-                        Eliminar
+                        <FaTrash size={20}/>
                       </button>
-                    </td>
+                    </div>
+                  </td>
                   </tr>
                 ))}
               </tbody>

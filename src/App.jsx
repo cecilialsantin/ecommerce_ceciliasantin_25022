@@ -17,6 +17,9 @@ import Cart from './components/Cart';
 import Buy from './components/Buy';
 import Pay from './components/Pay';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const { isAuth } = useAuth(); //
 
@@ -53,6 +56,19 @@ function App() {
         </Routes>
       </main>
       <Footer />
+
+       <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
+
+
     </>
   );
 }

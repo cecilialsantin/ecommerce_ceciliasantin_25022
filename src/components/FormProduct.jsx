@@ -1,5 +1,7 @@
 // FormProduct.jsx
 import { useState, useEffect } from "react";
+import { FaPlus, FaSave, FaTimes } from "react-icons/fa";
+
 
 export default function FormProduct({ onSubmit, initialData = {}, editingId, cancelEdit }) {
   const [form, setForm] = useState({
@@ -19,7 +21,7 @@ export default function FormProduct({ onSubmit, initialData = {}, editingId, can
       setForm(initialData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Se ejecuta solo al montar (evita re-renders infinitos)
+  }, []); 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,7 +35,6 @@ export default function FormProduct({ onSubmit, initialData = {}, editingId, can
     e.preventDefault();
     onSubmit(form);
 
-    // Si estás agregando (no editando), reiniciá el formulario
     if (!editingId) {
       setForm({
         name: "",
@@ -71,6 +72,18 @@ export default function FormProduct({ onSubmit, initialData = {}, editingId, can
             value={form.category}
             onChange={handleChange}
             className="form-control"
+            required
+          />
+        </div>
+        <div className="col-md-6">
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Cantidad disponible"
+            value={form.quantity}
+            onChange={handleChange}
+            className="form-control"
+            min={1}
             required
           />
         </div>
@@ -130,14 +143,20 @@ export default function FormProduct({ onSubmit, initialData = {}, editingId, can
           />
         </div>
         <div className="col-md-6 text-end">
-          <button type="submit" className="btn btn-success">
-            {editingId ? "Guardar cambios" : "Agregar servicio"}
+          <button type="submit" className="btn btn-success me-2">
+            {editingId ? (
+              <>
+                <FaSave className="me-1" /> Guardar
+              </>
+            ) : (
+              <>
+                <FaPlus className="me-1" /> Agregar
+              </>
+            )}
           </button>
-          {editingId && (
-            <button type="button" className="btn btn-secondary ms-2" onClick={cancelEdit}>
-              Cancelar
-            </button>
-          )}
+          <button type="button" className="btn btn-secondary" onClick={cancelEdit}>
+            <FaTimes className="me-1" /> Cancelar
+          </button>
         </div>
       </div>
     </form>

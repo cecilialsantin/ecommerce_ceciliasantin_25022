@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -6,19 +6,14 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [isAuth, setIsAuth] = useState(false);
+  const [role, setRole] = useState(() => localStorage.getItem('role') || '');
+
+  const [isAuth, setIsAuth] = useState(() => {
+  return localStorage.getItem("isAuth") === "true";
+  });
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
-
- useEffect(() => {
-  const isAuthenticated = localStorage.getItem('isAuth') === 'true';
-  if (isAuthenticated) {
-    setIsAuth(true);
-  }
-}, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +42,7 @@ export const AuthProvider = ({ children }) => {
           setIsAuth(true);
           setRole(foundUser.role);
           localStorage.setItem('isAuth', true);
+          localStorage.setItem('role', foundUser.role);
           navigate('/admin');
         } else {
           navigate('/');

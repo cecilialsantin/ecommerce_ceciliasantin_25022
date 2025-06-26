@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-
+import { toast } from 'react-toastify';
 // se desabilita para no tener que separar el context en otro archivo
 // eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext();
@@ -53,12 +53,22 @@ const refreshProducts = () => {
     });
 };
 
-
-  const handleAddToCart = (product) => {
-  const quantityToAdd = product.quantity || 1; // cantidad mínima = 1
+  const handleAddToCart = (product, forcedQuantity = null) => {
   const productInCart = cart.find((item) => item.id === product.id);
+  const stockDisponible = products.find((p) => p.id === product.id)?.quantity || 0;
+  const quantityToAdd = forcedQuantity ?? product.quantity ?? 1;
 
   if (productInCart) {
+    if (productInCart.quantity + quantityToAdd > 5) {
+      toast.info("Máximo 5 unidades por servicio.");
+      return;
+    }
+
+    if (productInCart.quantity + quantityToAdd > stockDisponible) {
+      toast.error("No hay suficiente stock disponible.");
+      return;
+    }
+
     setCart(
       cart.map((item) =>
         item.id === product.id
@@ -67,9 +77,23 @@ const refreshProducts = () => {
       )
     );
   } else {
-    setCart([...cart, { ...product, quantity: quantityToAdd }]);
+    if (quantityToAdd > stockDisponible) {
+      toast.error("No hay suficiente stock disponible.");
+      return;
+    }
+
+    setCart([
+      ...cart,
+      {
+        ...product,
+        quantity: quantityToAdd,
+        stockDisponible,
+      },
+    ]);
   }
 };
+
+
 
   const handleDeleteFromCart = (product) => {
     setCart((prevCart) =>

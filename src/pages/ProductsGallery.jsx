@@ -10,7 +10,7 @@ export default function ProductsGallery() {
 
   return (
     <div className="container text-center">
-      <h1 className="display-4 mb-4 text-success">Galería de Servicios</h1>
+      <h1 className="display-4 fw-bold text-success mb-4">Galería de Servicios</h1>
       <p className="lead mb-4">
         Explorá nuestros servicios diseñados para restaurar y enriquecer la biodiversidad en entornos urbanos y periurbanos.
       </p>

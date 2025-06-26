@@ -1,23 +1,43 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import { toast } from "react-toastify";
+
+// 🔁 Función para obtener la estación actual
+const getCurrentSeason = () => {
+  const month = new Date().getMonth() + 1;
+  if ([12, 1, 2].includes(month)) return "verano";
+  if ([3, 4, 5].includes(month)) return "otoño";
+  if ([6, 7, 8].includes(month)) return "invierno";
+  if ([9, 10, 11].includes(month)) return "primavera";
+  return "todo el año";
+};
 
 const Products = ({ product, addToCart }) => {
   const [quantity, setQuantity] = useState(1);
 
-  // Esto se manejará desde el AdminProducts por medio de la 
-  // Page Admin cuando se finalice su implementación para la entrega Final 
-  // por ahora queda solo cartelito y siempre disponible para poder probar 
-  // la funcionalidad de agregar al carrito
-  const available = product.available ?? true; 
- 
+  const currentSeason = getCurrentSeason();
 
-  const increase = () => setQuantity((prev) => prev + 1);
+  const isInSeason =
+    product.season === currentSeason || product.season === "todo el año";
+
+  const isInStock = product.quantity > 0;
+
+  const isCurrentlyAvailable = product.available && isInSeason && isInStock;
+
+  const increase = () => {
+    if (quantity >= 5) {
+      toast.warning("El máximo permitido por servicio es 5 unidades.");
+      return;
+    }
+    setQuantity((prev) => prev + 1);
+  };
+
   const decrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   const handleAdd = () => {
-    if (!available) {
-      alert("Este servicio no está disponible actualmente.");
+    if (!isCurrentlyAvailable) {
+      toast.info("Este servicio no está disponible actualmente.");
       return;
     }
 
@@ -27,7 +47,7 @@ const Products = ({ product, addToCart }) => {
     const total = product.price * quantity;
     const plural = quantity === 1 ? "servicio" : "servicios";
 
-    alert(
+    toast.info(
       `Estás agregando ${quantity} ${plural} por un total de $${total} al carrito.`
     );
 
@@ -48,38 +68,40 @@ const Products = ({ product, addToCart }) => {
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text fw-bold text-success">${product.price}</p>
 
-        {/* Indicador de disponibilidad (no interactivo) */}
         <span
-          className={`badge ${available ? "bg-success" : "bg-danger"} mb-2`}
+          className={`badge ${isCurrentlyAvailable ? "bg-success" : "bg-danger"} mb-2`}
           style={{ width: "fit-content" }}
-          title="Funcionalidad no implementada"
         >
-          {available ? "Disponible" : "No disponible"}
+          {!isInStock
+            ? "Por el momento no disponemos de este servicio."
+            : !isInSeason
+            ? `Disponible en: ${product.season}`
+            : "Disponible"}
         </span>
 
-        <div className="d-flex justify-content-center align-items-center gap-2 mb-2">
-          <button
-            className="btn btn-outline-secondary btn-sm"
-            onClick={decrease}
-          >
-            -
-          </button>
-          <span>{quantity}</span>
-          <button
-            className="btn btn-outline-secondary btn-sm"
-            onClick={increase}
-          >
-            +
-          </button>
-        </div>
+        {isCurrentlyAvailable && (
+          <>
+            <div className="d-flex justify-content-center align-items-center gap-2 mb-2">
+              <button
+                className="btn btn-outline-secondary btn-sm"
+                onClick={decrease}
+              >
+                -
+              </button>
+              <span>{quantity}</span>
+              <button
+                className="btn btn-outline-secondary btn-sm"
+                onClick={increase}
+              >
+                +
+              </button>
+            </div>
 
-        <button
-          className="btn btn-success mb-2"
-          onClick={handleAdd}
-          disabled={!available}
-        >
-          Agregar al carrito
-        </button>
+            <button className="btn btn-success mb-2" onClick={handleAdd}>
+              Agregar al carrito
+            </button>
+          </>
+        )}
 
         <Link
           to={`/products/${product.id}`}

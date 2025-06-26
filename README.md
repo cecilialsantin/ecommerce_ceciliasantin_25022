@@ -1,4 +1,4 @@
-# 🪴 NativePlant - Preentrega React TT (hasta Clase 7) COMISIÓN 25022
+# 🪴 NativePlant - Entrega Final - Curso React TT COMISIÓN 25022
 
 URL: https://ecommercececiliasantin25022.vercel.app/
 
@@ -7,7 +7,7 @@ URL: https://ecommercececiliasantin25022.vercel.app/
 NativePlant es un e-commerce de servicios de restauración ecológica en entornos urbanos y periurbanos. Los usuarios pueden explorar una galería de servicios, agregarlos a un carrito, simular una compra, completar sus datos y acceder a una ruta protegida (admin) si ingresan como usuario administrador.
 
 
-## ✅ Funcionalidades implementadas hasta Clase 7
+## ✅ Funcionalidades implementadas
 
 ### 🌱 Estructura del proyecto
 - Proyecto creado con **Vite + React**
@@ -48,11 +48,9 @@ NativePlant es un e-commerce de servicios de restauración ecológica en entorno
 
 ---
 
-## 🔧 Consideraciones y cosas pendientes para la entrega final
+## 🔧 Consideraciones finales
 
-- ❌ Se usan Alerts que luego para el proyecto final se reemplazaran por mensajes más agradables para el usuario.
-- ❌ El **carrito no persiste** al recargar porque aún **no se implementó localStorage** (tema no visto aún en clase)
-- 🛑 La ruta `/admin` está protegida pero **no implementa lógica real** para modificar productos (solo simulado)
-- ✏️ La funcionalidad de “disponibilidad del servicio” está preparada visualmente pero **no se conecta a estado global**
-- 🔒 El login es solo visual y sin almacenamiento persistente
-- 🧾 Validaciones simples en el formulario (`Buy`) con alertas, sin back-end
+
+1 - La acción de pagar esta dentro del componente PAY. Una vez que la persona confirma el "pago" se reduce la cantidad (quantity) en mockapi para ese product. (o servicio). El pago simulado se implemento para poder vaciar alli el carrito
+2 - La cantidad (quantity) se establece en el Admin, el tope para el agregado al carrito son 5 unidades y si la persona pide 6 lanza un alert. Esto se relaciona con que son servicios y su disponibilidad en cuanto a cantidad tiene que ver con multiples factores que por el momento queda en manos del administrador. Queda pendiente el establecimiento de un sistema automático para determinar la cantidad de disponible de un servicio.
+

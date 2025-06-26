@@ -1,11 +1,23 @@
 // context/AdminContext.jsx
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
+
+    const [isAuth, setIsAuth] = useState(() => {
+    
+    return localStorage.getItem("isAuth") === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("isAuth", isAuth);
+  }, [isAuth]);
+
+
   const apiUrl = "https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services";
+  
 
   const addProduct = async (product) => {
     const res = await fetch(apiUrl, {
@@ -37,7 +49,12 @@ export const AdminProvider = ({ children }) => {
 
   return (
     <AdminContext.Provider
-      value={{ addProduct, updateProduct, deleteProduct }}
+      value={{  
+        isAuth,
+        setIsAuth,
+        addProduct, 
+        updateProduct, 
+        deleteProduct }}
     >
       {children}
     </AdminContext.Provider>
