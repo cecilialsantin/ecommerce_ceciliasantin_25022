@@ -1,57 +1,91 @@
 # 🪴 NativePlant - Entrega Final - Curso React TT COMISIÓN 25022
 
-URL: https://ecommercececiliasantin25022.vercel.app/
+**🌐 URL:**  
+https://ecommercececiliasantin25022.vercel.app/
 
-**Descripción general:**
+## 🧾 Descripción general
 
-NativePlant es un e-commerce de servicios de restauración ecológica en entornos urbanos y periurbanos. Los usuarios pueden explorar una galería de servicios, agregarlos a un carrito, simular una compra, completar sus datos y acceder a una ruta protegida (admin) si ingresan como usuario administrador.
+**NativePlant** es un e-commerce de servicios de restauración ecológica en entornos urbanos y periurbanos. Los usuarios pueden:
 
+- Explorar servicios según categoría y temporada.
+- Agregar servicios al carrito (con tope por unidad).
+- Simular una compra y completar sus datos.
+- Ingresar a una sección de administración protegida mediante login.
+
+---
 
 ## ✅ Funcionalidades implementadas
 
 ### 🌱 Estructura del proyecto
 - Proyecto creado con **Vite + React**
 - Enrutamiento con **React Router DOM**
-- Componentes divididos en: `pages`, `components`, `context`, `auth`, `data`
-- Estilos aplicados con **Bootstrap** y CSS personalizados
+- Componentes organizados en: `pages`, `components`, `context`, `auth`, `data`
+- Estilos con **Bootstrap 5** + CSS personalizado
 
 ### 🛒 E-commerce funcional
-- Galería de servicios cargada desde `data.json` con `fetch`
-- Visualización individual (`ProductDescription`)
-- Componente `Cart` con botones para:
-  - Aumentar y disminuir cantidad
-  - Eliminar servicio (ícono de trash)
-  - Ver total
-- Simulación de compra (`Buy`) y pago (`Pay`)
-- Carrito implementado con `Context API`
+- Galería dinámica de servicios desde **MockAPI**
+- Detalle individual de producto (`ProductDescription`)
+- Agregado al carrito con control de cantidad (1 a 5)
+- Simulación de compra (`Buy`) y confirmación de pago (`Pay`)
+- El pago **actualiza el stock** en MockAPI y **vacía el carrito**
 
-### 🔐 Login simulado
-- Usuario: `admin@nativeplantchain.com.ar`
-- Contraseña: `123`
-- Si el login coincide, se muestra el botón **Admin**
-- Ruta `/admin` protegida con componente `RutaProtegida`
+### 🔐 Login simulado y ruta protegida
+- **Credenciales:**  
+  - Usuario: `admin@nativeplantchain.com.ar`  
+  - Contraseña: `123`
+- Si se autentica correctamente, se accede al botón y ruta `/admin`
+- Ruta protegida con `RutaProtegida.jsx`
 
-### 🧠 Contexto global (`CartContext`)
-- Manejo de productos, carrito, autenticación
-- Las funciones de `addToCart`, `deleteFromCart`, `removeFromCart` funcionan correctamente
-- Se preparó el estado `isAuthenticated` y `userEmail` para login
+### 🧠 Contextos globales
+- `CartContext`: manejo de productos, carrito, login y estado global
+- `AdminContext`: operaciones CRUD contra **MockAPI** (agregar, editar, eliminar productos)
+- Manejo centralizado de estados (`isAuthenticated`, `products`, `cart`, `userRole`)
 
-### 🎨 Interfaz
-- Navbar con logo personalizado (símbolo coreano 숲)
-- Footer con mensaje personalizado
-- Diseño responsive y uso de íconos (React Icons)
-- Cards uniformes con cantidad, botón de "ver más", y categoría
+### 🛠️ Panel de administración
+- CRUD completo desde `/admin`:
+  - Agregar nuevo servicio
+  - Editar campos de servicio (incluye imagen, cantidad, temporada, categoría, precio)
+  - Eliminar servicio
+- Tabla con servicios disponibles y stock
+- Filtro por ID de producto (código)
+- Al editar, la página se **scroll**ea automáticamente hacia el formulario
 
-### 🧪 Funcionalidad adicional: Filtro por categoría
-- Menú desplegable para filtrar servicios
-- Si no hay coincidencias, muestra mensaje y botón "Ver todos"
+### 📦 Lógica de stock y disponibilidad
+- Desde la galería:
+  - Se muestra como **disponible** si tiene stock y está en temporada
+  - Si está fuera de temporada, se ofrece una **pre-reserva simulada**
+- Al confirmar el pago:
+  - Se descuenta la cantidad seleccionada del servicio en MockAPI
+  - Se vacía el carrito
+- Si la cantidad es `0`, el producto aparece como no disponible
+
+### 🔎 Funcionalidad adicional
+- **Filtro por categoría** en la galería
+- **Buscar por código (ID)** en el panel de administración
+- Cards unificadas visualmente
+- Uso de íconos (`FaEye`, `FaTrash`, `FaEdit`, `FaPlus`, `FaSearch`) y `React Toastify`
 
 ---
 
-## 🔧 Consideraciones finales
+## 🧪 Consideraciones finales
 
+1. ✅ El stock de cada servicio se **descuenta automáticamente al finalizar el proceso de pago** simulado (dentro del componente `Pay`). La cantidad disponible se gestiona desde el panel Admin.
 
-1 - La acción de pagar esta dentro del componente PAY. Una vez que la persona confirma el "pago" se reduce la cantidad (quantity) en mockapi para ese product. (o servicio). El pago simulado se implemento para poder vaciar alli el carrito y descontar la cantidad disponible del servicio. El manejo de las cantidades se ve desde el admin. En la galeria de productos solo se muestra la disponibilidad o no del servicio. Pero desde el Admin se ve el descuento de las cantidades una vez pagado el servicio.
-2 - La cantidad (quantity) se establece en el Admin, el tope para el agregado al carrito son 5 unidades y si la persona pide 6 lanza un alert. Esto se relaciona con que son servicios y su disponibilidad en cuanto a cantidad tiene que ver con multiples factores que por el momento queda en manos del administrador. Queda pendiente el establecimiento de un sistema automático para determinar la cantidad de disponible de un servicio.
-3 - En el detalle por servicio (ProductDescription), se deja como posibilidad de mejora la opción de realizar pre-reserva de servicios si está fuera de temporada. El agregado al carrito quedó para realizarse exclusivamente desde la Galería de servicios a la que se llega desde Servicios.
+2. ✅ El **tope máximo de compra por servicio** es de 5 unidades. Si se intenta agregar más, se muestra una advertencia.
 
+3. ✅ En la vista de detalle (`ProductDescription`), si el servicio está fuera de temporada, se ofrece una **pre-reserva simulada mediante un modal** que solicita nombre y correo electrónico.
+
+4. ✅ El **formulario de agregar/editar servicio** permite manejar la cantidad (`quantity`), disponibilidad (`available`) y temporada (`season`), reflejando los cambios en MockAPI y en tiempo real en la galería de productos.
+
+---
+
+## 💡 Próximas mejoras sugeridas
+
+- Sistema automático para gestionar el stock dinámicamente según capacidad operativa.
+- Validación real de usuarios mediante backend o Firebase Auth.
+- Persistencia de sesión y administración de pedidos.
+
+---
+
+🚀 **Autor:** Cecilia Santín  
+🛠️ **Tech stack:** React · Vite · React Router DOM · Bootstrap · Context API · MockAPI  
