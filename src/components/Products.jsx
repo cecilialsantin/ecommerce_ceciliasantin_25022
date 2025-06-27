@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-// 🔁 Función para obtener la estación actual
 const getCurrentSeason = () => {
   const month = new Date().getMonth() + 1;
   if ([12, 1, 2].includes(month)) return "verano";
@@ -60,7 +59,12 @@ const Products = ({ product, addToCart }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="card-img-top object-fit-cover"
+          className="card-img-top"
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+          }}
         />
       </div>
 
@@ -75,8 +79,8 @@ const Products = ({ product, addToCart }) => {
           {!isInStock
             ? "Por el momento no disponemos de este servicio."
             : !isInSeason
-            ? `Disponible en: ${product.season}`
-            : "Disponible"}
+              ? `Disponible en: ${product.season}`
+              : "Disponible"}
         </span>
 
         {isCurrentlyAvailable && (

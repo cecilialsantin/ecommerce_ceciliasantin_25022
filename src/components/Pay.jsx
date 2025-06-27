@@ -13,7 +13,6 @@ export default function Pay() {
 
   const handlePayment = async () => {
     try {
-      // Para cada producto del carrito, hacé GET primero para traer el stock actualizado
       await Promise.all(
         cart.map(async (item) => {
           const responseGet = await fetch(`https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services/${item.id}`);

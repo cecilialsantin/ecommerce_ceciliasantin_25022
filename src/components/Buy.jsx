@@ -32,7 +32,7 @@ export default function Buy() {
       return;
     }
 
-   toast.info(`Estás solicitando ${cantidadProductos} ${plural} por un total de $${total}. 
+    toast.info(`Estás solicitando ${cantidadProductos} ${plural} por un total de $${total}. 
 ¡Gracias por tu solicitud! Una vez que completes el pago, contactaremos a ${form.nombre} al número ${form.telefono}.`);
 
 

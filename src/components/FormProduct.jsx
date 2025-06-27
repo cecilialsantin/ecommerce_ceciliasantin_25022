@@ -15,13 +15,12 @@ export default function FormProduct({ onSubmit, initialData = {}, editingId, can
     season: "todo el año",
   });
 
-  // Solo actualiza el formulario si estás editando
   useEffect(() => {
     if (editingId && initialData?.id) {
       setForm(initialData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

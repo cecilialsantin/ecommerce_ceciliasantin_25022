@@ -58,7 +58,7 @@ export default function Login() {
           {errors.password && <div className="text-danger">{errors.password}</div>}
         </div>
         <button type="submit" className="btn btn-success w-20 d-block mx-auto">
-          <FaPaperPlane /> {/* Ícono de enviar */}
+          <FaPaperPlane />
         </button>
       </form>
     </div>

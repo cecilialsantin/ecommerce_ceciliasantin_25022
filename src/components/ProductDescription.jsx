@@ -5,7 +5,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Modal, Button, Form } from "react-bootstrap";
 
-// 🔁 Estación actual
 const getCurrentSeason = () => {
   const month = new Date().getMonth() + 1;
   if ([12, 1, 2].includes(month)) return "verano";
@@ -28,12 +27,11 @@ export default function ProductDescription() {
   const availabilityText = !isInStock
     ? "Por el momento no disponemos de este servicio."
     : !isInSeason
-    ? `Disponible en: ${product?.season}`
-    : "Disponible";
+      ? `Disponible en: ${product?.season}`
+      : "Disponible";
 
   const availabilityClass = !isInStock || !isInSeason ? "bg-danger" : "bg-success";
 
-  // Modal
   const [showModal, setShowModal] = useState(false);
   const [preReservaData, setPreReservaData] = useState({
     nombre: "",
@@ -121,10 +119,6 @@ export default function ProductDescription() {
           )}
         </div>
 
-        <div className="bg-light rounded-4 p-4 mt-4" style={{ backgroundColor: "#eff8f1" }}>
-          {/* Información adicional */}
-        </div>
-
         <div className="text-center mt-5">
           <Link to="/productos" className="btn btn-outline-success">
             <FaArrowLeft /> Volver
@@ -132,7 +126,6 @@ export default function ProductDescription() {
         </div>
       </div>
 
-      {/* Modal */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Pre-reserva de servicio</Modal.Title>

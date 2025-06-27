@@ -13,13 +13,13 @@ export default function Contacts() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("📩 Nuevo mensaje recibido:", formData);
-    setFormData({ nombre: "", email: "", mensaje: "" }); 
+    setFormData({ nombre: "", email: "", mensaje: "" });
     toast.info("Mensaje enviado, muchas gracias por tu contacto.");
   };
 
   return (
     <div className="container my-5">
-      <h1 className="display-5 fw-bold text-success text-center mb-3">Contacto</h1>
+      <h1 className="display-5 fw-bold text-success text-center mb-3">Contactos</h1>
       <p className="text-muted text-center mb-4 fs-5">
         Podés comunicarte con nosotros a través del formulario o seguirnos en nuestras redes 🌿
       </p>
@@ -71,9 +71,9 @@ export default function Contacts() {
           />
         </div>
 
-         <button type="submit" className="btn btn-success w-20 d-block mx-auto">
-                  <FaPaperPlane /> {/* Ícono de enviar */}
-          </button>
+        <button type="submit" className="btn btn-success w-20 d-block mx-auto">
+          <FaPaperPlane /> 
+        </button>
       </form>
     </div>
   );

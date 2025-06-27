@@ -36,11 +36,11 @@ export default function Header() {
 
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto me-2">
-                 {isAuth && role === "admin" && (
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/admin">Admin</Link>
-                    </li>
-                  )}
+              {isAuth && role === "admin" && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/admin">Admin</Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link className="nav-link" to="/productos">Servicios</Link>
               </li>
@@ -63,9 +63,9 @@ export default function Header() {
 
               {isAuth ? (
                 <li className="nav-item">
-                 <button className="nav-link" onClick={logout}>
-                  <FiLogOut size={20} />
-                </button>
+                  <button className="nav-link" onClick={logout}>
+                    <FiLogOut size={20} />
+                  </button>
 
                 </li>
               ) : (

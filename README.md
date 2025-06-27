@@ -51,6 +51,7 @@ NativePlant es un e-commerce de servicios de restauración ecológica en entorno
 ## 🔧 Consideraciones finales
 
 
-1 - La acción de pagar esta dentro del componente PAY. Una vez que la persona confirma el "pago" se reduce la cantidad (quantity) en mockapi para ese product. (o servicio). El pago simulado se implemento para poder vaciar alli el carrito
+1 - La acción de pagar esta dentro del componente PAY. Una vez que la persona confirma el "pago" se reduce la cantidad (quantity) en mockapi para ese product. (o servicio). El pago simulado se implemento para poder vaciar alli el carrito y descontar la cantidad disponible del servicio. El manejo de las cantidades se ve desde el admin. En la galeria de productos solo se muestra la disponibilidad o no del servicio. Pero desde el Admin se ve el descuento de las cantidades una vez pagado el servicio.
 2 - La cantidad (quantity) se establece en el Admin, el tope para el agregado al carrito son 5 unidades y si la persona pide 6 lanza un alert. Esto se relaciona con que son servicios y su disponibilidad en cuanto a cantidad tiene que ver con multiples factores que por el momento queda en manos del administrador. Queda pendiente el establecimiento de un sistema automático para determinar la cantidad de disponible de un servicio.
+3 - En el detalle por servicio (ProductDescription), se deja como posibilidad de mejora la opción de realizar pre-reserva de servicios si está fuera de temporada. El agregado al carrito quedó para realizarse exclusivamente desde la Galería de servicios a la que se llega desde Servicios.
 

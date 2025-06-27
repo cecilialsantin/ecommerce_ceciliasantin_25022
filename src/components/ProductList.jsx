@@ -25,7 +25,7 @@ export default function ProductList({ categoria, setCategoria }) {
     return <p className="text-danger text-center">Ocurrió un error al cargar los servicios.</p>;
   }
 
-const productosFiltrados =
+  const productosFiltrados =
     categoria === "Todas"
       ? products
       : products.filter((p) => p.category === categoria);

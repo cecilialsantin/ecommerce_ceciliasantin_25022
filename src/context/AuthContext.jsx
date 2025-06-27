@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(() => localStorage.getItem('role') || '');
 
   const [isAuth, setIsAuth] = useState(() => {
-  return localStorage.getItem("isAuth") === "true";
+    return localStorage.getItem("isAuth") === "true";
   });
 
   const [errors, setErrors] = useState({});

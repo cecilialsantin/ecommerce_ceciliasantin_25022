@@ -6,8 +6,8 @@ export const AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
 
-    const [isAuth, setIsAuth] = useState(() => {
-    
+  const [isAuth, setIsAuth] = useState(() => {
+
     return localStorage.getItem("isAuth") === "true";
   });
 
@@ -17,7 +17,7 @@ export const AdminProvider = ({ children }) => {
 
 
   const apiUrl = "https://683c47e728a0b0f2fdc6ac4c.mockapi.io/services";
-  
+
 
   const addProduct = async (product) => {
     const res = await fetch(apiUrl, {
@@ -49,12 +49,13 @@ export const AdminProvider = ({ children }) => {
 
   return (
     <AdminContext.Provider
-      value={{  
+      value={{
         isAuth,
         setIsAuth,
-        addProduct, 
-        updateProduct, 
-        deleteProduct }}
+        addProduct,
+        updateProduct,
+        deleteProduct
+      }}
     >
       {children}
     </AdminContext.Provider>

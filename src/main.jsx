@@ -11,16 +11,14 @@ import { AdminProvider } from './context/AdminContext.jsx';
 
 
 createRoot(document.getElementById('root')).render(
- <StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        
-           <CartProvider>
-            <AdminProvider>
-          <App />
+        <CartProvider>
+          <AdminProvider>
+            <App />
           </AdminProvider>
-          </CartProvider>
-      
+        </CartProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>
